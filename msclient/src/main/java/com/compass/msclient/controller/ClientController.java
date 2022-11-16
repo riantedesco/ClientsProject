@@ -70,7 +70,7 @@ public class ClientController {
 	@Transactional
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		this.clientService.delete(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 }
