@@ -64,7 +64,7 @@ public class ClientController {
 
 	@ApiOperation(value = "Remove um cliente pelo id")
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Cliente deletado"),
+			@ApiResponse(code = 204, message = "Cliente deletado"),
 			@ApiResponse(code = 404, message = "Cliente não encontrado")})
 	@DeleteMapping(value = "/{id}")
 	@Transactional
