@@ -12,3 +12,4 @@
   > Swagger do msclient: http://localhost:7071/swagger-ui.html
   
 > Link do vídeo de apresentação:
+https://www.loom.com/embed/58dfa3aafadb41b9bb13e47702af391a
