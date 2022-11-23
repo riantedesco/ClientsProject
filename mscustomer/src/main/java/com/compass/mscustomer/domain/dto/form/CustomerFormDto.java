@@ -1,5 +1,6 @@
 package com.compass.mscustomer.domain.dto.form;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiModel(value = "Envio dos dados do cliente")
 public class CustomerFormDto {
 
     @ApiModelProperty(value = "Nome do cliente")

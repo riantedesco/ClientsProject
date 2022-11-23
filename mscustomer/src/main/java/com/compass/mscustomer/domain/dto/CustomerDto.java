@@ -1,5 +1,6 @@
 package com.compass.mscustomer.domain.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiModel(value = "Retorno dos dados do cliente")
 public class CustomerDto {
 
     @ApiModelProperty(value = "Id do cliente")

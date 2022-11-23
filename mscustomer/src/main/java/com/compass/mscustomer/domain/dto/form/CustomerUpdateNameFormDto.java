@@ -1,5 +1,6 @@
 package com.compass.mscustomer.domain.dto.form;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiModel(value = "Envio dos dados da atualização do cliente")
 public class CustomerUpdateNameFormDto {
 
     @ApiModelProperty(value = "Nome do cliente")

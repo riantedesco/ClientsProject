@@ -2,6 +2,7 @@ package com.compass.mscustomer.service;
 
 import com.compass.mscustomer.domain.CustomerEntity;
 import com.compass.mscustomer.domain.dto.CustomerDto;
+import com.compass.mscustomer.exception.InvalidAttributeException;
 import com.compass.mscustomer.exception.NotFoundAttributeException;
 import com.compass.mscustomer.fixture.CityFixture;
 import com.compass.mscustomer.fixture.CustomerFixture;
@@ -51,7 +52,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void save_WhenSendSave_ExpectedClient ()  {
+    void save_WhenSendSaveWithValidCity_ExpectedClient ()  {
         when(cityRepository.findById(anyLong())).thenReturn(Optional.of(CityFixture.getCityEntity()));
 
         when(customerRepository.save(any(CustomerEntity.class))).thenReturn(CustomerFixture.getCustomerEntity());
@@ -60,6 +61,14 @@ public class CustomerServiceTest {
         verify(customerRepository, times(1)).save(any(CustomerEntity.class));
         assertEquals(response.getId(), CustomerFixture.getCustomerEntity().getId());
         assertNotNull(response);
+    }
+
+    @Test
+    void save_WhenSendSaveWithInvalidCity_ExpectedInvalidAttributeException ()  {
+        InvalidAttributeException response = assertThrows(InvalidAttributeException.class, () -> customerService.save(CustomerFixture.getCustomerFormDtoWithInvalidCity()));
+
+        assertNotNull(response);
+        assertEquals("City not found", response.getMessage());
     }
 
     @Test

@@ -4,9 +4,7 @@ import com.compass.mscustomer.domain.dto.CustomerDto;
 import com.compass.mscustomer.domain.dto.form.CustomerFormDto;
 import com.compass.mscustomer.domain.dto.form.CustomerUpdateNameFormDto;
 import com.compass.mscustomer.service.CustomerService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/customers")
+@Api(value = "Operações do cliente")
 public class CustomerController {
 
 	@Autowired
@@ -38,7 +37,7 @@ public class CustomerController {
 			@ApiResponse(code = 200, message = "Retorna o cliente encontrado"),
 			@ApiResponse(code = 404, message = "Cliente não encontrado")})
 	@GetMapping(value = "/{id}", produces = "application/json")
-	public ResponseEntity<CustomerDto> find(@PathVariable Long id) {
+	public ResponseEntity<CustomerDto> find(@ApiParam(value = "Id do cliente", required = true, example = "1") @PathVariable Long id) {
 		return ResponseEntity.ok(this.customerService.find(id));
 	}
 
@@ -47,7 +46,7 @@ public class CustomerController {
 			@ApiResponse(code = 200, message = "Retorna o cliente encontrado"),
 			@ApiResponse(code = 404, message = "Cliente não encontrado")})
 	@GetMapping(value = "/name={name}", produces = "application/json")
-	public ResponseEntity<List<CustomerDto>> findByName(@PathVariable String name) {
+	public ResponseEntity<List<CustomerDto>> findByName(@ApiParam(value = "Nome do cliente", required = true, example = "João da Silva") @PathVariable String name) {
 		return ResponseEntity.ok(this.customerService.findByName(name));
 	}
 
@@ -58,7 +57,7 @@ public class CustomerController {
 			@ApiResponse(code = 404, message = "Cliente não encontrado")})
 	@PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
 	@Transactional
-	public ResponseEntity<CustomerDto> updateName(@PathVariable Long id, @RequestBody @Valid CustomerUpdateNameFormDto body) {
+	public ResponseEntity<CustomerDto> updateName(@ApiParam(value = "Id do cliente", required = true, example = "1") @PathVariable Long id, @RequestBody @Valid CustomerUpdateNameFormDto body) {
 		return ResponseEntity.ok(this.customerService.updateName(id, body));
 	}
 
@@ -68,7 +67,7 @@ public class CustomerController {
 			@ApiResponse(code = 404, message = "Cliente não encontrado")})
 	@DeleteMapping(value = "/{id}")
 	@Transactional
-	public ResponseEntity<?> delete(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@ApiParam(value = "Id do cliente", required = true, example = "1") @PathVariable Long id) {
 		this.customerService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

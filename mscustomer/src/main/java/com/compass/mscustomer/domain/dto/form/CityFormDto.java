@@ -1,6 +1,7 @@
 package com.compass.mscustomer.domain.dto.form;
 
 import com.compass.mscustomer.util.constants.StateCityOption;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiModel(value = "Envio dos dados da cidade")
 public class CityFormDto {
 
     @ApiModelProperty(value = "Nome da cidade")

@@ -4,9 +4,7 @@ import com.compass.mscustomer.domain.dto.CityDto;
 import com.compass.mscustomer.domain.dto.form.CityFormDto;
 import com.compass.mscustomer.service.CityService;
 import com.compass.mscustomer.util.constants.StateCityOption;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/cities")
+@Api(value = "Operações da cidade")
 public class CityController {
 
 	@Autowired
@@ -38,7 +37,7 @@ public class CityController {
 			@ApiResponse(code = 200, message = "Retorna a cidade encontrada"),
 			@ApiResponse(code = 404, message = "Cidade não encontrada")})
 	@GetMapping(value = "/name={name}", produces = "application/json")
-	public ResponseEntity<List<CityDto>> findByName(@PathVariable String name) {
+	public ResponseEntity<List<CityDto>> findByName(@ApiParam(value = "Nome da cidade", required = true, example = "Passo Fundo") @PathVariable String name) {
 		return ResponseEntity.ok(this.cityService.findByName(name));
 	}
 
@@ -47,7 +46,7 @@ public class CityController {
 			@ApiResponse(code = 200, message = "Retorna a cidade encontrada"),
 			@ApiResponse(code = 404, message = "Cidade não encontrada")})
 	@GetMapping(value = "/state={state}", produces = "application/json")
-	public ResponseEntity<List<CityDto>> findByState(@PathVariable StateCityOption state) {
+	public ResponseEntity<List<CityDto>> findByState(@ApiParam(value = "Estado da cidade", required = true, example = "rio_grande_do_sul") @PathVariable StateCityOption state) {
 		return ResponseEntity.ok(this.cityService.findByState(state));
 	}
 

@@ -6,6 +6,7 @@ import com.compass.mscustomer.domain.dto.form.CustomerFormDto;
 import com.compass.mscustomer.domain.dto.form.CustomerUpdateNameFormDto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CustomerFixture {
 
@@ -50,6 +51,15 @@ public class CustomerFixture {
     }
 
     public static CustomerFormDto getCustomerFormDtoWithInvalidAttribute() {
+        return CustomerFormDto.builder()
+                .name("Customer default")
+                .sex("Masculino")
+                .birthdate(LocalDate.parse("2002-03-30"))
+                .idCity(5000L)
+                .build();
+    }
+
+    public static CustomerFormDto getCustomerFormDtoWithInvalidCity() {
         return CustomerFormDto.builder()
                 .name("A")
                 .sex("Helicóptero")

@@ -24,7 +24,7 @@ public class CustomerSaveValidationTest {
     }
 
     @Test
-    void validateClient_WhenSendInvalidSex_ExpectedInvalidAttributeException ()  {
+    void validateSex_WhenSendInvalidSex_ExpectedInvalidAttributeException ()  {
         InvalidAttributeException response = assertThrows(InvalidAttributeException.class, () ->
                 customerSaveValidation.validateSex(CustomerFixture.getCustomerEntityWithInvalidSex()));
         assertNotNull(response);
