@@ -39,16 +39,6 @@ public class CustomerFixture {
                 .build();
     }
 
-    public static CustomerEntity getCustomerEntityWithInvalidName() {
-        return CustomerEntity.builder()
-                .id(1L)
-                .name("A")
-                .sex("Masculino")
-                .birthdate(LocalDate.parse("2002-03-30"))
-                .city(CityFixture.getCityEntity())
-                .build();
-    }
-
     public static CustomerEntity getCustomerEntityWithInvalidSex() {
         return CustomerEntity.builder()
                 .id(1L)

@@ -51,7 +51,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void saveClient_WhenSendSaveClientValid_ExpectedClient ()  {
+    void save_WhenSendSave_ExpectedClient ()  {
         when(cityRepository.findById(anyLong())).thenReturn(Optional.of(CityFixture.getCityEntity()));
 
         when(customerRepository.save(any(CustomerEntity.class))).thenReturn(CustomerFixture.getCustomerEntity());
@@ -63,7 +63,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void findClient_WhenSendFindClientWithIdValid_ExpectedClient ()  {
+    void find_WhenSendFindWithExistingId_ExpectedClient ()  {
         when(cityRepository.findById(anyLong())).thenReturn(Optional.of(CustomerFixture.getCustomerEntity().getCity()));
 
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(CustomerFixture.getCustomerEntity()));
@@ -73,7 +73,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void findClient_WhenSendFindClientWithIdInvalid_ExpectedNotFoundAttributeException ()  {
+    void find_WhenSendFindWithNonExistingId_ExpectedNotFoundAttributeException ()  {
         NotFoundAttributeException response = assertThrows(NotFoundAttributeException.class, () -> customerService.find(5000L));
 
         assertNotNull(response);
@@ -81,7 +81,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void findByNameClient_WhenSendFindByNameClientWithNameValid_ExpectedClient ()  {
+    void findByName_WhenSendFindByNameWithExistingName_ExpectedClient ()  {
         when(cityRepository.findById(anyLong())).thenReturn(Optional.of(CustomerFixture.getCustomerEntity().getCity()));
 
         when(customerRepository.findByName(anyString())).thenReturn(List.of(CustomerFixture.getCustomerEntity()));
@@ -91,7 +91,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void findByNameClient_WhenSendFindByNameClientWithNameInvalid_ExpectedNotFoundAttributeException ()  {
+    void findByName_WhenSendFindByNameWithNonExistingName_ExpectedNotFoundAttributeException ()  {
         NotFoundAttributeException response = assertThrows(NotFoundAttributeException.class, () -> customerService.findByName("Nome blá blá blá"));
 
         assertNotNull(response);
@@ -99,7 +99,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void updateNameClient_WhenSendUpdateNameClientWithIdValid_ExpectedClient ()  {
+    void updateName_WhenSendUpdateNameWithExistingId_ExpectedClient ()  {
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(CustomerFixture.getCustomerEntity()));
         when(customerRepository.save(any(CustomerEntity.class))).thenReturn(CustomerFixture.getCustomerEntity());
         CustomerDto response = customerService.updateName(CustomerFixture.getCustomerEntity().getId(), CustomerFixture.getCustomerUpdateNameFormDto());
@@ -109,7 +109,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void updateNameClient_WhenSendUpdateNameClientWithIdInvalid_ExpectedNotFoundAttributeException ()  {
+    void updateName_WhenSendUpdateNameWithNonExistingId_ExpectedNotFoundAttributeException ()  {
         NotFoundAttributeException response = assertThrows(NotFoundAttributeException.class, () -> customerService.updateName(5000L, CustomerFixture.getCustomerUpdateNameFormDto()));
 
         assertNotNull(response);
@@ -117,7 +117,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void deleteClient_WhenSendDeleteClientWithIdValid_ExpectedOk ()  {
+    void delete_WhenSendDeleteWithExistingId_ExpectedOk ()  {
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(CustomerFixture.getCustomerEntity()));
         doNothing().when(customerRepository).deleteById(anyLong());
         customerService.delete(CustomerFixture.getCustomerEntity().getId());
@@ -126,7 +126,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void deleteClient_WhenSendDeleteClientWithIdInvalid_ExpectedNotFoundAttributeException ()  {
+    void delete_WhenSendDeleteWithNonExistingId_ExpectedNotFoundAttributeException ()  {
         NotFoundAttributeException response = assertThrows(NotFoundAttributeException.class, () -> customerService.delete(5000L));
 
         assertNotNull(response);

@@ -32,7 +32,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void saveCity_WhenSendMethodPost_ExpectedStatus201() {
+    public void save_WhenSendSaveWithValidBody_ExpectedStatus201() {
         given()
                 .contentType("application/json")
                 .body(CityFixture.getCityFormDto())
@@ -43,7 +43,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void saveCity_WhenSendMethodPost_ExpectedStatus400() {
+    public void save_WhenSendSaveWithInvalidBody_ExpectedStatus400() {
         given()
                 .contentType("application/json")
                 .body(CityFixture.getCityFormDtoWithInvalidAttribute())
@@ -54,7 +54,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void findByNameCity_WhenSendMethodGetByName_ExpectedStatus200() {
+    public void findByName_WhenSendFindByNameWithExistingName_ExpectedStatus200() {
         CityDto citySaved = cityService.save(CityFixture.getCityFormDto());
 
         given()
@@ -64,7 +64,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void findByNameCity_WhenSendMethodGetByName_ExpectedStatus404() {
+    public void findByName_WhenSendFindByNameWithNonExistingName_ExpectedStatus404() {
         given()
                 .when()
                 .get("/v1/cities/name={name}", "Nome blá blá blá").then()
@@ -72,7 +72,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void findByStateCity_WhenSendMethodGetByState_ExpectedStatus200() {
+    public void findByState_WhenSendFindByStateWithExistingState_ExpectedStatus200() {
         CityDto citySaved = cityService.save(CityFixture.getCityFormDto());
 
         given()
@@ -82,7 +82,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void findByStateCity_WhenSendMethodGetByState_ExpectedStatus404() {
+    public void findByState_WhenSendFindByStateWithNonExistingState_ExpectedStatus404() {
         given()
                 .when()
                 .get("/v1/cities/state={state}", "Nome blá blá blá").then()

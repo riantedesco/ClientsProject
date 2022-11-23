@@ -45,7 +45,7 @@ public class CityServiceTest {
     }
 
     @Test
-    void saveCity_WhenSendSaveCityValid_ExpectedCity ()  {
+    void save_WhenSendSave_ExpectedCity ()  {
         when(cityRepository.save(any(CityEntity.class))).thenReturn(CityFixture.getCityEntity());
         CityDto response = cityService.save(CityFixture.getCityFormDto());
 
@@ -55,7 +55,7 @@ public class CityServiceTest {
     }
 
     @Test
-    void findByNameCity_WhenSendFindByNameCityWithNameValid_ExpectedCity ()  {
+    void findByName_WhenSendFindByNameWithExistingName_ExpectedCity ()  {
         when(cityRepository.findByName(anyString())).thenReturn(List.of(CityFixture.getCityEntity()));
         List<CityDto> response = cityService.findByName(CityFixture.getCityDto().getName());
 
@@ -63,7 +63,7 @@ public class CityServiceTest {
     }
 
     @Test
-    void findByNameCity_WhenSendFindByNameCityWithNameInvalid_ExpectedNotFoundAttributeException ()  {
+    void findByName_WhenSendFindByNameNonExistingName_ExpectedNotFoundAttributeException ()  {
         NotFoundAttributeException response = assertThrows(NotFoundAttributeException.class, () -> cityService.findByName("Name blá blá blá"));
 
         assertNotNull(response);
@@ -71,7 +71,7 @@ public class CityServiceTest {
     }
 
     @Test
-    void findByStateCity_WhenSendFindByStateCityWithStateValid_ExpectedCity ()  {
+    void findByState_WhenSendFindByStateWithExistingState_ExpectedCity ()  {
         when(cityRepository.findByState(any())).thenReturn(List.of(CityFixture.getCityEntity()));
         List<CityDto> response = cityService.findByState(CityFixture.getCityDto().getState());
 
@@ -79,7 +79,7 @@ public class CityServiceTest {
     }
 
     @Test
-    void findByStateCity_WhenSendFindByStateCityWithStateInvalid_ExpectedNotFoundAttributeException ()  {
+    void findByState_WhenSendFindByStateWithNonExistingState_ExpectedNotFoundAttributeException ()  {
         NotFoundAttributeException response = assertThrows(NotFoundAttributeException.class, () -> cityService.findByState(any()));
 
         assertNotNull(response);

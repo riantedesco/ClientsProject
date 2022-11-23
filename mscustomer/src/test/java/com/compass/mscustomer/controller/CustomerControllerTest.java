@@ -32,120 +32,119 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void saveClient_WhenSendMethodPost_ExpectedStatus201() {
+    public void save_WhenSendSaveWithValidBody_ExpectedStatus201() {
         given()
                 .contentType("application/json")
                 .body(CustomerFixture.getCustomerFormDto())
                 .when()
-                .post("/v1/clients")
+                .post("/v1/customers")
                 .then()
                 .statusCode(HttpStatus.CREATED.value());
     }
 
     @Test
-    public void saveClient_WhenSendMethodPost_ExpectedStatus400() {
+    public void save_WhenSendSaveWithInvalidBodyExpectedStatus400() {
         given()
                 .contentType("application/json")
                 .body(CustomerFixture.getCustomerFormDtoWithInvalidAttribute())
                 .when()
-                .post("/v1/clients")
+                .post("/v1/customers")
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
-    public void findClient_WhenSendMethodGetById_ExpectedStatus200() {
+    public void find_WhenSendFindWithExistingId_ExpectedStatus200() {
         CustomerDto customerSaved = customerService.save(CustomerFixture.getCustomerFormDto());
 
         given()
                 .when()
-                .get("/v1/clients/{id}", customerSaved.getId())
+                .get("/v1/customers/{id}", customerSaved.getId())
                 .then()
                 .statusCode(HttpStatus.OK.value());
     }
 
     @Test
-    public void findClient_WhenSendMethodGetById_ExpectedStatus404() {
+    public void find_WhenSendFindWithNonExistingId_ExpectedStatus404() {
         given()
                 .when()
-                .get("/v1/clients/{id}", 5000L)
+                .get("/v1/customers/{id}", 5000L)
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
-    public void findClient_WhenSendMethodGetByName_ExpectedStatus200() {
+    public void findByName_WhenSendFindByNameWithExistingName_ExpectedStatus200() {
         CustomerDto customerSaved = customerService.save(CustomerFixture.getCustomerFormDto());
 
         given()
                 .when()
-                .get("/v1/clients/name={name}", customerSaved.getName())
-                .then()
+                .get("/v1/customers/name={name}", customerSaved.getName()).then()
                 .statusCode(HttpStatus.OK.value());
     }
 
     @Test
-    public void findClient_WhenSendMethodGetByName_ExpectedStatus404() {
+    public void findByName_WhenSendFindByNameWithNonExistingName_ExpectedStatus404() {
         given()
                 .when()
-                .get("/v1/clients/name={name}", "Nome blá blá blá")
+                .get("/v1/customers/name={name}", "Nome blá blá blá")
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
-    public void updateNameClient_WhenSendMethodUpdateById_ExpectedStatus200() {
+    public void updateName_WhenSendUpdateNameWithExistingIdAndValidBody_ExpectedStatus200() {
         CustomerDto customerSaved = customerService.save(CustomerFixture.getCustomerFormDto());
 
         given()
                 .contentType("application/json")
                 .body(CustomerFixture.getCustomerUpdateNameFormDto())
                 .when()
-                .put("/v1/clients/{id}", customerSaved.getId())
+                .put("/v1/customers/{id}", customerSaved.getId())
                 .then()
                 .statusCode(HttpStatus.OK.value());
     }
 
     @Test
-    public void updateNameClient_WhenSendMethodUpdateById_ExpectedStatus400() {
+    public void updateName_WhenSendUpdateNameWithInvalidBody_ExpectedStatus400() {
         CustomerDto customerSaved = customerService.save(CustomerFixture.getCustomerFormDto());
 
         given()
                 .contentType("application/json")
                 .body(CustomerFixture.getCustomerUpdateNameFormDtoWithInvalidName())
                 .when()
-                .put("/v1/clients/{id}", customerSaved.getId())
+                .put("/v1/customers/{id}", customerSaved.getId())
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
-    public void updateNameClient_WhenSendMethodUpdateById_ExpectedStatus404() {
+    public void updateName_WhenSendUpdateNameWithNonExistingId_ExpectedStatus404() {
         given()
                 .contentType("application/json")
                 .body(CustomerFixture.getCustomerUpdateNameFormDto())
                 .when()
-                .put("/v1/clients/{id}", 5000L)
+                .put("/v1/customers/{id}", 5000L)
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
-    public void deleteClient_WhenSendMethodDeleteById_ExpectedStatus204() {
+    public void delete_WhenSendDeleteWithExistingId_ExpectedStatus204() {
         CustomerDto customerSaved = customerService.save(CustomerFixture.getCustomerFormDto());
 
         given()
                 .when()
-                .delete("/v1/clients/{id}", customerSaved.getId())
+                .delete("/v1/customers/{id}", customerSaved.getId())
                 .then()
                 .statusCode(HttpStatus.NO_CONTENT.value());
     }
 
     @Test
-    public void deleteClient_WhenSendMethodDeleteById_ExpectedStatus404() {
+    public void delete_WhenSendDeleteWithNonExistingId_ExpectedStatus404() {
         given()
                 .when()
-                .delete("/v1/clients/{id}", 5000L)
+                .delete("/v1/customers/{id}", 5000L)
                 .then()
                 .statusCode(HttpStatus.NOT_FOUND.value());
     }
